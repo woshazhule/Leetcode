@@ -31,3 +31,35 @@ public:
         return nums;
     }
 };
+
+归并排序
+
+堆排序
+class Solution {
+public:
+    void downadjust(vector<int>& nums,int root,int size)
+    {
+        int lf=root*2+1;
+        int lr=root*2+2;
+        int maxid=root;
+        if(lf<=size&&nums[lf]>nums[maxid])maxid=lf;
+        if(lr<=size&&nums[lr]>nums[maxid])maxid=lr;
+        if(maxid!=root)
+        {
+            swap(nums[root],nums[maxid]);
+            downadjust(nums,maxid,size);
+        }
+    }
+    vector<int> sortArray(vector<int>& nums) {
+        for(int i=nums.size()/2;i>=0;i--)
+        {
+            downadjust(nums,i,nums.size()-1);
+        }
+        for(int i=nums.size()-1;i>0;i--)
+        {
+            swap(nums[i],nums[0]);
+            downadjust(nums,0,i-1);
+        }
+        return nums;
+    }
+};
