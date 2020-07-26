@@ -1,4 +1,4 @@
-[Leetcode912](https://leetcode-cn.com/problems/sort-an-array/)
+Leetcode912 https://leetcode-cn.com/problems/sort-an-array/
 快速排序
 class Solution {
 public:
