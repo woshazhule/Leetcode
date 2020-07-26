@@ -39,11 +39,11 @@ class Solution {
 public:
     void downadjust(vector<int>& nums,int root,int size)
     {
-        int lf=root*2+1;
-        int lr=root*2+2;
+        int l=root*2+1;
+        int r=root*2+2;
         int maxid=root;
-        if(lf<=size&&nums[lf]>nums[maxid])maxid=lf;
-        if(lr<=size&&nums[lr]>nums[maxid])maxid=lr;
+        if(l<=size&&nums[l]>nums[maxid])maxid=l;
+        if(r<=size&&nums[r]>nums[maxid])maxid=r;
         if(maxid!=root)
         {
             swap(nums[root],nums[maxid]);
