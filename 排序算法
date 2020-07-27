@@ -112,3 +112,49 @@ public:
         return nums;
     }
 };
+
+Leetcode148 https://leetcode-cn.com/problems/sort-list/
+归并排序
+class Solution {
+public:
+    ListNode* mergeSort(ListNode* head)
+    {
+        if(head==NULL||head->next==NULL)return head;
+        ListNode* dummyhead=new ListNode(-1);
+        dummyhead->next=head;
+        ListNode* fast=dummyhead->next;
+        ListNode* slow=dummyhead;
+        while(fast!=NULL&&fast->next!=NULL)
+        {
+            fast=fast->next->next;
+            slow=slow->next;
+        }
+        fast=slow->next;
+        slow->next=NULL;
+        ListNode* tmp2=mergeSort(fast);
+        ListNode* tmp1=mergeSort(dummyhead->next);
+        ListNode* p=dummyhead;
+        while(tmp1!=NULL&&tmp2!=NULL)
+        {
+            if(tmp1->val<tmp2->val)
+            {
+                p->next=tmp1;
+                tmp1=tmp1->next;
+            }
+            else
+            {
+                p->next=tmp2;
+                tmp2=tmp2->next;
+            }
+            p=p->next;
+        }
+        if(tmp1!=NULL)p->next=tmp1;
+        if(tmp2!=NULL)p->next=tmp2;
+        return dummyhead->next;
+    }
+    ListNode* sortList(ListNode* head) {
+        return mergeSort(head);
+    }
+};
+
+bottom-to-up
