@@ -158,3 +158,68 @@ public:
 };
 
 bottom-to-up
+class Solution {
+public:
+    ListNode* cut(ListNode* p,int size)
+    {
+        while(p!=NULL&&--size)
+        {
+            p=p->next;
+        }
+        if(p==NULL)return NULL;
+        ListNode* next=p->next;
+        p->next=NULL;
+        return next;
+    }
+    ListNode* merge(ListNode* l1,ListNode* l2)
+    {
+        ListNode* dummyhead=new ListNode(-1);
+        ListNode* p=dummyhead;
+        while(l1!=NULL&&l2!=NULL)
+        {
+            if(l1->val<l2->val)
+            {
+                p->next=l1;
+                l1=l1->next;
+            }
+            else
+            {
+                p->next=l2;
+                l2=l2->next;
+            }
+            p=p->next;
+        }
+        if(l1!=NULL)p->next=l1;
+        if(l2!=NULL)p->next=l2;
+        return dummyhead->next;
+    }
+    ListNode* sortList(ListNode* head) {
+        int len=0;
+        ListNode* dummyhead=new ListNode(-1);
+        dummyhead->next=head;
+        ListNode* p=head;
+        while(p!=NULL)
+        {
+            len++;
+            p=p->next;
+        }
+        if(len==0||len==1)return head;
+        for(int stepsize=1;stepsize<len;stepsize*=2)
+        {
+            ListNode* cur=dummyhead->next;
+            ListNode* tail=dummyhead;
+            while(cur)
+            {
+                ListNode* left=cur;
+                ListNode* right=cut(left,stepsize);
+                cur=cut(right,stepsize);
+                tail->next=merge(left,right);
+                while(tail->next!=NULL)
+                {
+                    tail=tail->next;
+                }
+            }
+        }
+        return dummyhead->next;
+    }
+};
