@@ -1,0 +1,42 @@
+Leetcode 81
+class Solution {
+public:
+    bool search(vector<int>& nums, int target) {
+        int left=0;
+        int right=nums.size()-1;
+        if(nums.size()==0)return false;
+        while(left+1<right)
+        {
+            for(;left<right&&nums[left]==nums[left+1];left++);
+            for(;left<right&&nums[right]==nums[right-1];right--);
+            int mid=((right-left)>>1)+left;
+            if(nums[mid]>nums[left])
+            {
+                if(nums[mid]>target&&target>nums[left])
+                {
+                    right=mid;
+                }
+                else if(nums[mid]==target||nums[left]==target)return true;
+                else
+                {
+                    left=mid;
+                }
+            }
+            else
+            {
+                if(nums[mid]<target&&target<nums[right])
+                {
+                    left=mid;
+                }
+                else if(nums[mid]==target||nums[right]==target)return true;
+                else
+                {
+                    right=mid;
+                }
+            }
+        }
+        if(nums[left]==target)return true;
+        if(nums[right]==target)return true;
+        return false;
+    }
+};
